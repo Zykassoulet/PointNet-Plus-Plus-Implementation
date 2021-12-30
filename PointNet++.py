@@ -1,24 +1,21 @@
-import dataset
-import torch
-import pytorch3d.ops as ops
-from torchvision import datasets, transforms, utils
-import zipfile
-import h5py as h5
-import numpy as np
-import matplotlib.pyplot as plt
-from tqdm import trange, tqdm
-import copy
-
-import os
 import sys
+import os
+import copy
+from tqdm import trange, tqdm
+import numpy as np
+import pytorch3d.ops as ops
+import matplotlib.pyplot as plt
+import h5py as h5
+import zipfile
+from torchvision import datasets, transforms, utils
+import torch
 
-
-# imports the dataset python file which loads the AnTao97/PointCloudDataset
 script_dir = os.path.dirname(__file__)
 shape_net_part_2015_dir = os.path.join(
-    script_dir, '..', 'Datasets', 'ShapeNetPart2015', 'PointCloudDatasets')
+    script_dir, 'Datasets', 'ShapeNetPart2015', 'PointCloudDatasets')
 sys.path.append(shape_net_part_2015_dir)
-
+# imports the dataset python file which loads the AnTao97/PointCloudDataset
+import dataset      # nopep8
 
 """
 
@@ -775,7 +772,7 @@ ax.set_title('Guitar predicted no training')
 ax.scatter(x, y, z, c=cbis)
 
 for i, epoch in enumerate(epochs):
-    point_net_pp = torch.load('point_net_pp_epoch_'+str(epoch))
+    point_net_pp = torch.load('Nets\point_net_pp_epoch_'+str(epoch))
     used_data_points = copy.deepcopy(pts)
     res_data_points_features = torch.argmax(
         point_net_pp(used_data_points).features, dim=1)
